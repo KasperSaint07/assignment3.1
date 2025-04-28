@@ -42,4 +42,54 @@ public class BST<K extends Comparable<K>, V> implements Iterable<BST<K, V>.Node>
         }
         return nodes.iterator();
     }
+
+    public void put(K key, V value) {
+        Node newNode = new Node(key, value);
+        if (root == null) {
+            root = newNode;
+            size++;
+            return;
+        }
+
+        Node current = root;
+        while (true) {
+            if (key.compareTo(current.key) < 0) {
+                if (current.left == null) {
+                    current.left = newNode;
+                    size++;
+                    return;
+                }
+                current = current.left;
+            } else if (key.compareTo(current.key) > 0) {
+                if (current.right == null) {
+                    current.right = newNode;
+                    size++;
+                    return;
+                }
+                current = current.right;
+            } else {
+                current.value = value;
+                return;
+            }
+        }
+    }
+
+    public V get(K key) {
+        Node current = root;
+        while (current != null) {
+            if (key.compareTo(current.key) == 0) {
+                return current.value;
+            } else if (key.compareTo(current.key) < 0) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        return null;
+    }
+
+    public int size() {
+        return size;
+    }
+
 }
