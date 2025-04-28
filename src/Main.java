@@ -13,7 +13,7 @@ public class Main {
 
         for (int i = 0; i < 11; i++) {
             int count = 0;
-            var node = table.chainArray[i];
+            var node = table.getChain(i); // исправлено, берем через метод
             while (node != null) {
                 count++;
                 node = node.next;

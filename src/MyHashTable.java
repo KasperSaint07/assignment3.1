@@ -1,8 +1,8 @@
 public class MyHashTable<K, V> {
-    private class HashNode<K, V> {
+    public class HashNode<K, V> {
         private K key;
         private V value;
-        private HashNode<K, V> next;
+        public HashNode<K, V> next;
 
         public HashNode(K key, V value) {
             this.key = key;
@@ -36,6 +36,7 @@ public class MyHashTable<K, V> {
         chainArray[index] = newNode;
         size++;
     }
+
     public V get(K key) {
         int index = hash(key);
         HashNode<K, V> current = chainArray[index];
@@ -47,6 +48,7 @@ public class MyHashTable<K, V> {
         }
         return null;
     }
+
     public V remove(K key) {
         int index = hash(key);
         HashNode<K, V> current = chainArray[index];
@@ -94,4 +96,12 @@ public class MyHashTable<K, V> {
         return null;
     }
 
+    public int size() {
+        return size;
+    }
+
+    //new m
+    public HashNode<K, V> getChain(int index) {
+        return chainArray[index];
+    }
 }
