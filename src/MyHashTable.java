@@ -28,4 +28,13 @@ public class MyHashTable<K, V> {
     private int hash(K key) {
         return Math.abs(key.hashCode()) % M;
     }
+
+    public void put(K key, V value) {
+        int index = hash(key);
+        HashNode<K, V> newNode = new HashNode<>(key, value);
+        newNode.next = chainArray[index];
+        chainArray[index] = newNode;
+        size++;
+    }
+
 }
