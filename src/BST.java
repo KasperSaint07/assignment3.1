@@ -91,5 +91,53 @@ public class BST<K extends Comparable<K>, V> implements Iterable<BST<K, V>.Node>
     public int size() {
         return size;
     }
+    public void delete(K key) {
+        Node parent = null;
+        Node current = root;
+
+        while (current != null && !current.key.equals(key)) {
+            parent = current;
+            if (key.compareTo(current.key) < 0) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+
+        if (current == null) {
+            return;
+        }
+
+        if (current.left == null || current.right == null) {
+            Node child = (current.left != null) ? current.left : current.right;
+
+            if (parent == null) {
+                root = child;
+            } else if (parent.left == current) {
+                parent.left = child;
+            } else {
+                parent.right = child;
+            }
+            size--;
+        } else {
+            Node successorParent = current;
+            Node successor = current.right;
+
+            while (successor.left != null) {
+                successorParent = successor;
+                successor = successor.left;
+            }
+
+            if (successorParent != current) {
+                successorParent.left = successor.right;
+            } else {
+                successorParent.right = successor.right;
+            }
+
+            current.key = successor.key;
+            current.value = successor.value;
+            size--;
+        }
+    }
 
 }
