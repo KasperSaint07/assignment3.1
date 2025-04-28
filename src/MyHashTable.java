@@ -47,5 +47,51 @@ public class MyHashTable<K, V> {
         }
         return null;
     }
+    public V remove(K key) {
+        int index = hash(key);
+        HashNode<K, V> current = chainArray[index];
+        HashNode<K, V> prev = null;
+
+        while (current != null) {
+            if (current.key.equals(key)) {
+                if (prev == null) {
+                    chainArray[index] = current.next;
+                } else {
+                    prev.next = current.next;
+                }
+                size--;
+                return current.value;
+            }
+            prev = current;
+            current = current.next;
+        }
+        return null;
+    }
+
+    public boolean contains(V value) {
+        for (int i = 0; i < M; i++) {
+            HashNode<K, V> current = chainArray[i];
+            while (current != null) {
+                if (current.value.equals(value)) {
+                    return true;
+                }
+                current = current.next;
+            }
+        }
+        return false;
+    }
+
+    public K getKey(V value) {
+        for (int i = 0; i < M; i++) {
+            HashNode<K, V> current = chainArray[i];
+            while (current != null) {
+                if (current.value.equals(value)) {
+                    return current.key;
+                }
+                current = current.next;
+            }
+        }
+        return null;
+    }
 
 }
